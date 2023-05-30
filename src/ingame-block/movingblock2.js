@@ -41,7 +41,7 @@ export default class movingblock2 extends GameObject {
         const distance = Math.abs(
           this.sprite.getPosition().x - other.getPosition().x
         );
-        const xDiff = xSize - distance;
+        const xDiff = xSize - distance+1;
         this.direction *= -1;
         this.sprite.addPosition(new Vector(this.direction * xDiff, 0));
       }
