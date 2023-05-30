@@ -16,6 +16,7 @@ import {
 import Path from "/src/engine/utils/path.js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
+import notBlock from "../ingame-block/notblock.js";
 export default class Stage3 extends GameObject  {
   constructor() {
     super();
@@ -43,10 +44,10 @@ export default class Stage3 extends GameObject  {
     this.block = new Block(435, 435)
     this.addChild(this.block);
 
-    this.block = new Block(435, 405)
+    this.block = new notBlock(435, 405)
     this.addChild(this.block);
 
-    this.block = new Block(435, 375)
+    this.block = new notBlock(435, 375)
     this.addChild(this.block);
 
     this.block = new Block(435, 345)
@@ -97,6 +98,7 @@ export default class Stage3 extends GameObject  {
     this.star = new star(765, 255)
     this.addChild(this.star);
     
+    this.starcount = 2;
   }
   update(deltaTime) {
     super.update(deltaTime);

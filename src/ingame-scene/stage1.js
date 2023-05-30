@@ -20,7 +20,7 @@ export default class Stage1 extends GameObject  {
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
-    this.ball = new Ball(415, 230);
+    this.ball = new Ball(650, 230);
     this.addChild(this.ball);
 
     this.block = new Block(385, 330)
@@ -92,7 +92,8 @@ export default class Stage1 extends GameObject  {
     this.star = new star(865, 300)
     this.addChild(this.star);
     
-
+    this.star = new star(420, 300)
+    this.addChild(this.star);
   }
   update(deltaTime) {
     super.update(deltaTime);
