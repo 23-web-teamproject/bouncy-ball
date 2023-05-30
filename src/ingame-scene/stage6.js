@@ -51,11 +51,7 @@ export default class Stage6 extends StageScene  {
     this.jumpblock = new JumpBlock(415, 375)
     this.addChild(this.jumpblock);
 
-    for(let i = 505; i<=805; i+=30)
-    {
-      this.block = new Block(i, 375)
-      this.addChild(this.block);
-    }
+    
     
     for(let i = 345; i>=255; i-=30)
     {
@@ -75,15 +71,17 @@ export default class Stage6 extends StageScene  {
     this.block = new Block(805, 225)
     this.addChild(this.block);
 
-    this.thorn = new Thorn(535, 345)
-    this.addChild(this.thorn);
+    this.block = new Block(805, 225)
+    this.addChild(this.block);
+
+    
 
     this.star = new star(565, 345)
     this.addChild(this.star);
 
-    for(let i = 595; i<=775; i+=30)
+    for(let i = 535; i<=775; i+=30)
     {
-      this.thorn = new Thorn(i, 345)
+      this.thorn = new Thorn(i, 375)
       this.addChild(this.thorn);
     }
 
@@ -123,10 +121,17 @@ export default class Stage6 extends StageScene  {
     this.ball = new Ball(505, 400)
     this.addChild(this.ball);
 
-    for(let i=595; i<=855; i+=60){
-    this.disappear_block = new disappear_block(i, 465)
+    this.disappear_block = new disappear_block(625, 465)
     this.addChild(this.disappear_block);
-    }
+
+    this.disappear_block = new disappear_block(655, 465)
+    this.addChild(this.disappear_block);
+
+    this.disappear_block = new disappear_block(775, 465)
+    this.addChild(this.disappear_block);
+
+    this.disappear_block = new disappear_block(805, 465)
+    this.addChild(this.disappear_block);
 
   }
   update(deltaTime) {
