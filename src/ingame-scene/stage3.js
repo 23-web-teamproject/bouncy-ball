@@ -58,9 +58,6 @@ export default class Stage3 extends GameObject  {
     this.jumpblock = new JumpBlock(495, 435)
     this.addChild(this.jumpblock);
 
-    this.jumpblock = new JumpBlock(495, 295)
-    this.addChild(this.jumpblock);
-
     this.thorn = new Thorn(525, 435)
     this.addChild(this.thorn);
 
