@@ -1,25 +1,17 @@
-import { BoxCollider } from "../engine/data-structure/collider.js";
+import Path from "/src/engine/utils/path.js";
+
+import StageScene from "./stage-scene.js";
 import Block from "../ingame-block/block(gray).js";
 import Thorn from "../ingame-block/thorn.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
-import {
-  GameObject,
-  Circle,
-  Rect,
-  Vector,
-  Color,
-  InputManager,
-  ParticleEffect,
-  SceneManager,
-  Sprite,
-} from "/src/engine/module.js";
-import Path from "/src/engine/utils/path.js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
+import Stage4 from "./stage4.js";
+
 import notBlock from "../ingame-block/notblock.js";
-export default class Stage3 extends GameObject  {
+export default class Stage3 extends StageScene  {
   constructor() {
-    super();
+    super(Stage4);
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 

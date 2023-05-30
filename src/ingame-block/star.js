@@ -2,6 +2,11 @@ import { Vector, Sprite } from "/src/engine/module.js";
 
 export default class star extends Sprite {
   /**
+   * @property {number} starCount
+   * @static
+   */
+  static starCount = 0;
+  /**
    * 밟으면 더 높이 뛰어오르는 블록입니다.
    *
    * @param {number} x - x좌표
@@ -20,11 +25,15 @@ export default class star extends Sprite {
         isTrigger : true
       },
     });
+    star.starCount++;
   }
 
   onCollision(other) {
-    this.destroy();
-    // 공이랑 닿을 때 공에 있는 변수값 수정해야함
+    if(this.isActive){
+      this.deactivate();
+      this.destroy();
+      star.starCount--;
+    }
 
   }
 }

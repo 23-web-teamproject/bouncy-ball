@@ -14,6 +14,10 @@ import { BoxCollider } from "../engine/data-structure/collider.js";
 
 export default class Ball extends Circle {
   /**
+   * @property {boolean} isDead 공이 죽었다면 true다.
+   */
+  static isDead = false;
+  /**
    * 플레이어가 조종할 공입니다.
    * 생성자 인자로 공이 스폰될 위치를 지정합니다.
    *
@@ -77,6 +81,8 @@ export default class Ball extends Circle {
      * -1이면 점프아이템
      */
     this.itemType = 0;
+
+    Ball.isDead = false;
   }
 
   update(deltaTime) {
@@ -232,6 +238,7 @@ export default class Ball extends Circle {
    */
   createDeadEffect() {
     this.hide();
+    Ball.isDead = true;
 
     if (this.particleEffect === undefined) {
       this.particleEffect = new ParticleEffect({
