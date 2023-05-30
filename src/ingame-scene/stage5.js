@@ -22,6 +22,7 @@ import dashitem from "../ingame-block/dashitem.js";
 import jumpitem from "../ingame-block/jumpitem.js";
 import wall from "../ingame-block/wall.js";
 import movingblcok from "../ingame-block/movingblock.js";
+import notBlock from "../ingame-block/notblock.js";
 export default class Stage5 extends GameObject  {
   constructor() {
     super();
@@ -35,7 +36,7 @@ export default class Stage5 extends GameObject  {
     this.addChild(this.jumpblock);
 
     for(let i = 285; i>= 165; i-=30){
-      this.block = new Block(445, i)
+      this.block = new notBlock(445, i)
       this.addChild(this.block);
     }
 
