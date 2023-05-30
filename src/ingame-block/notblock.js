@@ -18,10 +18,6 @@ export default class notBlock extends Sprite {
       rigidbody: {
         isStatic: true,
       },
-      boundary: {
-        width: 28,
-        height:28
-      }
     });
   }
 }

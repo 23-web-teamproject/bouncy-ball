@@ -27,11 +27,10 @@ export default class Stage4 extends GameObject  {
     this.ball = new Ball(385, 125);
     this.addChild(this.ball);
 
-    for(let i = 225; i<=465; i+=30)
-    {
-      this.block = new Block(385, i)
+    
+      this.block = new Block(385, 225)
     this.addChild(this.block);
-    }
+    
 
     this.block = new Block(415, 225)
     this.addChild(this.block);
@@ -56,54 +55,72 @@ export default class Stage4 extends GameObject  {
 
     for(let i = 285; i<=465; i+=60)
     {
+      this.star = new star(445, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(445, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(475, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(475, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(505, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(505, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(535, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(535, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(565, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(565, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(595, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(595, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(625, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(625, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      this.star = new star(655, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(655, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=405; i+=60)
     {
+      this.star = new star(685, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(685, i)
       this.addChild(this.thorn);
     }
@@ -113,6 +130,8 @@ export default class Stage4 extends GameObject  {
 
     for(let i = 225; i<=405; i+=60)
     {
+      this.star = new star(715, i-30)
+      this.addChild(this.star);
       this.thorn = new Thorn(715, i)
       this.addChild(this.thorn);
     }
@@ -122,12 +141,22 @@ export default class Stage4 extends GameObject  {
 
     for(let i = 225; i<=465; i+=60)
     {
+      if(i!=465)
+      {
+        this.star = new star(745, i-30)
+      this.addChild(this.star);
+      }
       this.thorn = new Thorn(745, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      if(i!=465)
+      {
+        this.star = new star(775, i-30)
+      this.addChild(this.star);
+      }
       this.thorn = new Thorn(775, i)
       this.addChild(this.thorn);
     }
@@ -137,12 +166,22 @@ export default class Stage4 extends GameObject  {
 
     for(let i = 225; i<=465; i+=60)
     {
+      if(i!=465)
+      {
+        this.star = new star(805, i-30)
+      this.addChild(this.star);
+      }
       this.thorn = new Thorn(805, i)
       this.addChild(this.thorn);
     }
 
     for(let i = 225; i<=465; i+=60)
     {
+      if(i!=465)
+      {
+        this.star = new star(835, i-30)
+      this.addChild(this.star);
+      }
       this.thorn = new Thorn(835, i)
       this.addChild(this.thorn);
     }
@@ -168,11 +207,7 @@ export default class Stage4 extends GameObject  {
     this.thorn = new Thorn(865, 465)
     this.addChild(this.thorn);
 
-    for(let i = 165; i<=495; i+=30)
-    {
-      this.block = new Block(895, i)
-      this.addChild(this.block);
-    }
+    
     
   }
   update(deltaTime) {
