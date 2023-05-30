@@ -10,8 +10,22 @@ export default class JumpBlock extends GameObject {
   constructor(x, y) {
     super();
 
-    this.addChild(new Sprite({
+    this.addChild(new Rect({
       name: "jumpblock",
+      width: 26,
+      height: 1,
+      transform: {
+        position: new Vector(x, y - 15),
+      },
+      isPhysicsEnable: true,
+      rigidbody: {
+        isStatic: true,
+        isTrigger: true,
+      },
+    }));
+
+    this.addChild(new Sprite({
+      name: "jumpblockimg",
       imagePath: "/src/ingame-block/jumpblock.png",
       isPhysicsEnable: true,
       transform: {
