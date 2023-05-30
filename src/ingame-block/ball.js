@@ -88,7 +88,7 @@ export default class Ball extends Circle {
 
   update(deltaTime) {
     super.update(deltaTime);
-    this.moveBall();
+    this.moveBall(deltaTime);
     this.useDashItemIfPlayerUseDash();
     this.moveBallIfBallCollidedMoveBlock();
     this.createDeadEffectIfBallOutOfScreen();
@@ -97,16 +97,16 @@ export default class Ball extends Circle {
   /**
    * 공의 이동을 처리한다.
    */
-  moveBall() {
+  moveBall(deltaTime) {
     if (InputManager.isKeyPressed("ArrowLeft")) {
       this.a = 0;
       this.rigidbody.isGravity = true;
-      this.addPosition(new Vector(-2, 0));
+      this.addPosition(new Vector(-120 * deltaTime, 0));
     }
     if (InputManager.isKeyPressed("ArrowRight")) {
       this.a = 0;
       this.rigidbody.isGravity = true;
-      this.addPosition(new Vector(2, 0));
+      this.addPosition(new Vector(120 * deltaTime, 0));
     }
   }
 
