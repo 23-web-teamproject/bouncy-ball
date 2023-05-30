@@ -23,6 +23,7 @@ import movingblock from "../ingame-block/movingblock.js";
 import movingblock2 from "../ingame-block/movingblock2.js";
 import movingblock3 from "../ingame-block/movingblock3.js";
 import wall from "../ingame-block/wall.js";
+import notBlock from "../ingame-block/notblock.js";
 export default class Stage6 extends GameObject  {
   constructor() {
     super();
@@ -65,17 +66,23 @@ export default class Stage6 extends GameObject  {
       this.addChild(this.block);
     }
     
-    for(let i = 345; i>=225; i-=30)
+    for(let i = 345; i>=255; i-=30)
     {
-      this.block = new Block(505, i)
+      this.block = new notBlock(505, i)
       this.addChild(this.block);
     }
 
-    for(let i = 345; i>=225; i-=30)
+    this.block = new Block(505, 225)
+    this.addChild(this.block);
+    
+    for(let i = 345; i>=255; i-=30)
     {
-      this.block = new Block(805, i)
+      this.block = new notBlock(805, i)
       this.addChild(this.block);
     }
+
+    this.block = new Block(805, 225)
+    this.addChild(this.block);
 
     this.thorn = new Thorn(535, 345)
     this.addChild(this.thorn);
@@ -125,17 +132,10 @@ export default class Stage6 extends GameObject  {
     this.ball = new Ball(505, 400)
     this.addChild(this.ball);
 
-    this.disappear_block = new disappear_block(595, 465)
+    for(let i=595; i<=855; i+=60){
+    this.disappear_block = new disappear_block(i, 465)
     this.addChild(this.disappear_block);
-
-    this.disappear_block = new disappear_block(625, 465)
-    this.addChild(this.disappear_block);
-
-    this.disappear_block = new disappear_block(745, 465)
-    this.addChild(this.disappear_block);
-
-    this.disappear_block = new disappear_block(775, 465)
-    this.addChild(this.disappear_block);
+    }
 
   }
   update(deltaTime) {

@@ -78,7 +78,7 @@ export default class Stage2 extends GameObject  {
     this.star = new star(850, 420)
     this.addChild(this.star);
     
-
+    this.starcount = 1;
   }
   update(deltaTime) {
     super.update(deltaTime);
