@@ -6,9 +6,9 @@ import Thorn from "../ingame-block/thorn.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
+import notBlock from "../ingame-block/notblock.js";
 import Stage4 from "./stage4.js";
 
-import notBlock from "../ingame-block/notblock.js";
 export default class Stage3 extends StageScene  {
   constructor() {
     super(Stage4);

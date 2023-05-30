@@ -16,7 +16,7 @@ class StageScene extends GameObject {
   /**
    * 모든 별을 획득했을 때 다음 스테이지를 불러오기 위해
    * 다음 스테이지를 인자로 넘겨줘야 한다.
-   * 
+   *
    * @constructor
    * @param {StageScene} NextScene 스테이지 클리어 시 불러올 다음 스테이지
    */
@@ -28,15 +28,13 @@ class StageScene extends GameObject {
 
   update(deltaTime) {
     super.update(deltaTime);
-    if (this.isStarCountIsZero()) {
-      this.loadNextStage();
-    }
-    if (this.isBallDead()) {
-      this.reloadCurrentScene();
-    }
-    if (InputManager.isKeyDown("a")) {
-      console.log(star.starCount);
-      Debug.pause();
+    if (this.isSceneChangeState === false) {
+      if (this.isStarCountIsZero()) {
+        this.loadNextStage();
+      }
+      if (this.isBallDead()) {
+        this.reloadCurrentScene();
+      }
     }
   }
 
@@ -45,14 +43,12 @@ class StageScene extends GameObject {
   }
 
   loadNextStage() {
-    if (this.isSceneChangeState === false) {
-      this.isSceneChangeState = true;
+    this.isSceneChangeState = true;
 
-      setTimeout(() => {
-        star.starCount = 0;
-        SceneManager.loadScene(this.NextScene);
-      }, 1500);
-    }
+    setTimeout(() => {
+      star.starCount = 0;
+      SceneManager.loadScene(this.NextScene);
+    }, 1500);
   }
 
   isBallDead() {
@@ -60,14 +56,12 @@ class StageScene extends GameObject {
   }
 
   reloadCurrentScene() {
-    if (this.isSceneChangeState === false) {
-      this.isSceneChangeState = true;
+    this.isSceneChangeState = true;
 
-      setTimeout(() => {
-        star.starCount = 0;
-        SceneManager.loadScene(this.constructor);
-      }, 1500);
-    }
+    setTimeout(() => {
+      star.starCount = 0;
+      SceneManager.loadScene(this.constructor);
+    }, 1500);
   }
 }
 

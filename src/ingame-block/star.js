@@ -12,7 +12,6 @@ export default class star extends Sprite {
    * @param {number} x - x좌표
    * @param {number} y - y좌표
    */
-  static starCount = 2;
   constructor(x, y) {
     super({
       name: "star",

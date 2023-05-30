@@ -7,6 +7,7 @@ import {
   ParticleEffect,
   RenderManager,
   SceneManager,
+  Debug,
 } from "/src/engine/module.js";
 
 import { clamp } from "../engine/utils.js";
@@ -14,7 +15,7 @@ import { BoxCollider } from "../engine/data-structure/collider.js";
 
 export default class Ball extends Circle {
   /**
-   * @property {boolean} isDead 공이 죽었다면 true다.
+   * @property {boolean} isDead공이 죽었다면 true다.
    */
   static isDead = false;
   /**
@@ -237,7 +238,7 @@ export default class Ball extends Circle {
    * 공이 죽었을 때 나오는 이펙트다.
    */
   createDeadEffect() {
-    this.hide();
+    this.deactivate();
     Ball.isDead = true;
 
     if (this.particleEffect === undefined) {
