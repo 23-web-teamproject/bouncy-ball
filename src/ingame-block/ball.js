@@ -32,6 +32,7 @@ export default class Ball extends Circle {
       isPhysicsEnable: true,
       rigidbody: {
         bounceness: 1,
+        dynamicFriction: 0.5,
         isGravity: true,
       },
     });

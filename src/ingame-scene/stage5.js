@@ -34,11 +34,10 @@ export default class Stage5 extends GameObject  {
     this.jumpblock = new JumpBlock(385, 165)
     this.addChild(this.jumpblock);
 
-    this.block = new Block(445, 285)
-    this.addChild(this.block);
-
-    this.block = new Block(445, 255)
-    this.addChild(this.block);
+    for(let i = 285; i>= 165; i-=30){
+      this.block = new Block(445, i)
+      this.addChild(this.block);
+    }
 
     for(let i = 475; i <= 535; i+=30)
     {
@@ -58,11 +57,13 @@ export default class Stage5 extends GameObject  {
       this.addChild(this.thorn);
     }
 
-    for(let i = 595; i <= 775; i+=60)
-    {
+    for(let i = 600; i <= 670; i+=70)
+    { 
       this.disappear_block = new disappear_block(i, 435)
       this.addChild(this.disappear_block);
     }
+    this.disappear_block = new disappear_block(804, 435)
+    this.addChild(this.disappear_block);
 
     this.jumpblock = new JumpBlock(745, 405)
     this.addChild(this.jumpblock);
@@ -102,9 +103,11 @@ export default class Stage5 extends GameObject  {
 
     this.movingblcok = new movingblcok(150, 225)
     this.addChild(this.movingblcok);
-
-    this.star = new star(60, 175)
+    
+    for(let i=300; i<=600;i+=30){
+    this.star = new star(60, i)
     this.addChild(this.star);
+    }
   }
   update(deltaTime) {
     super.update(deltaTime);

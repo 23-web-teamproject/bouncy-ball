@@ -29,7 +29,7 @@ export default class Stage6 extends GameObject  {
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
-    this.jumpblock = new JumpBlock(385, 495)
+    this.jumpblock = new JumpBlock(355, 495)
     this.addChild(this.jumpblock);
 
     for(let i = 475; i<=535; i+=30)
@@ -56,7 +56,7 @@ export default class Stage6 extends GameObject  {
     this.moveleftblock = new MoveleftBlock(895, 465)
     this.addChild(this.moveleftblock);
 
-    this.jumpblock = new JumpBlock(445, 375)
+    this.jumpblock = new JumpBlock(415, 375)
     this.addChild(this.jumpblock);
 
     for(let i = 505; i<=805; i+=30)
@@ -97,7 +97,7 @@ export default class Stage6 extends GameObject  {
 
     this.movingblock2 = new movingblock2(715, 315)
     this.addChild(this.movingblock2);
-    
+
     for(let i = 535; i<=685; i+=30)
     {
       this.thorn = new Thorn(i, 225)
@@ -116,10 +116,10 @@ export default class Stage6 extends GameObject  {
     this.wall = new wall(805, 195)
     this.addChild(this.wall);
 
-    this.movingblock3 = new movingblock3(535, 195)
-    this.addChild(this.movingblock3);
+    this.movingblock = new movingblock(535, 195)
+    this.addChild(this.movingblock);
 
-    this.jumpitem = new jumpitem(445, 285)
+    this.jumpitem = new jumpitem(415, 285)
     this.addChild(this.jumpitem);
 
     this.ball = new Ball(505, 400)
