@@ -21,7 +21,7 @@ export default class Stage6 extends StageScene  {
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
-    this.jumpblock = new JumpBlock(355, 495)
+    this.jumpblock = new JumpBlock(325, 495)
     this.addChild(this.jumpblock);
 
     for(let i = 475; i<=535; i+=30)
