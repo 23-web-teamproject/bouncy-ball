@@ -1,19 +1,22 @@
 import Color from "/src/engine/data-structure/color.js";
+import Vector from "/src/engine/data-structure/vector.js";
 
 import GameObject from "/src/engine/core/game-object.js";
 
 import { CircleCollider } from "/src/engine/data-structure/collider.js";
 import { typeCheck, typeCheckAndClamp } from "/src/engine/utils.js";
+import InputManager from "/src/engine/core/input-manager.js";
 
 /**
  * 화면에 원을 그리는 객체다.
  *
  * @extends {GameObject}
  */
-export default class Circle extends GameObject {
+class Circle extends GameObject {
   /**
    * @constructor
    * @param {object} options
+   * @param {string} [options.name]
    * @param {number} [options.radius]
    * @param {Color} [options.color]
    * @param {number} [options.strokeWidth]
@@ -22,6 +25,9 @@ export default class Circle extends GameObject {
    * @param {boolean} [options.isVisible]
    * @param {Layer} [options.layer]
    * @param {boolean} [options.isPhysicsEnable=false]
+   * @param {object} [options.boundary]
+   * @param {number} [options.boundary.radius]
+   * @param {number} [options.boundary.offset]
    * @param {object} [options.transform]
    * @param {Vector} [options.transform.position=new Vector(0, 0)]
    * @param {Vector} [options.transform.scale=new Vector(1, 1)]
@@ -81,9 +87,58 @@ export default class Circle extends GameObject {
      */
     this.setStrokeWidth(options.strokeWidth);
     /**
-     * Collision 타입을 원으로 바꾼다.
+     * Collision 타입을 원 형태로 설정한다.
      */
-    this.collider = new CircleCollider();
+    if (typeof options.boundary !== "object") {
+      options.boundary = {};
+    }
+    options.boundary.radius = typeCheck(
+      options.boundary.radius,
+      "number",
+      this.radius
+    );
+    this.collider = new CircleCollider(options.boundary);
+  }
+
+  /**
+   * 원을 AABB형태로 변환하여 생성한다.
+   * getBoundary를 실행할 경우 월드 좌표계에서 반지름이 반환되므로
+   * 월드 좌표계에서 Collider의 위치에 반지름을 뺀 값이 AABB의 min,
+   * Collider의 위치에 반지름을 더한 값이 AABB의 max가 된다.
+   *
+   * @returns {AABB}
+   */
+  getAABB() {
+    const colliderPos = this.getColliderPosition();
+    const boundary = this.getBoundary();
+    this.collider.aabb.min = new Vector(
+      colliderPos.x - boundary,
+      colliderPos.y - boundary
+    );
+    this.collider.aabb.max = new Vector(
+      colliderPos.x + boundary,
+      colliderPos.y + boundary
+    );
+
+    return this.collider.aabb;
+  }
+
+  /**
+   * 월드 좌표계에서 원의 외형을 반환한다.
+   * 원의 외형의 크기는 반지름으로 나타내므로,
+   * 월드 좌표계에서의 외형의 반지름이 반환된다.
+   *
+   * 사실 scale이 Vector라서 정확히는 잘못된 함수다.
+   * 물리엔진에서 scale값을 고려하고 있지만 원에 대해서는 그렇지 않다.
+   * 이 함수에는 worldScale의 x와 y값을 더한 후 2로 나눈 값을 반지름에 곱하고 있다.
+   * 가급적이면 원의 scale을 변경하지 않아야 하고,
+   * 변경하더라도 scale의 x와 y값을 같은 값으로 설정하여야 정상적으로 작동한다.
+   *
+   * @returns {number}
+   */
+  getBoundary() {
+    const worldScale = this.getWorldScale();
+    return this.collider.getBoundary() * ((worldScale.x + worldScale.y) / 2);
   }
 
   /**
@@ -125,4 +180,19 @@ export default class Circle extends GameObject {
   setStrokeWidth(width) {
     this.strokeWidth = typeCheckAndClamp(width, "number", 1, 1, 15);
   }
+
+  /**
+   * 이 객체위에 마우스가 올라가 있는지를 반환한다.
+   * 원의 경우 반지름을 이용한 계산을 해야한다.
+   *
+   * @returns {boolean}
+   */
+  isMouseOver() {
+    const position = this.getWorldPosition();
+    const mousePos = InputManager.getMousePos();
+    const distance = position.minus(mousePos);
+    return distance.squareLength() < this.radius * this.radius;
+  }
 }
+
+export default Circle;
