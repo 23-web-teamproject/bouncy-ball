@@ -1,5 +1,4 @@
 import Engine from "/src/engine/engine.js";
-import Scene from "./ingame-scene/scene.js";
 import Stage1 from "./ingame-scene/stage1.js";
 import Stage2 from "./ingame-scene/stage2.js";
 import Stage3 from "./ingame-scene/stage3.js";
@@ -24,11 +23,11 @@ window.onload = () => {
     height: 720,
     fps: 60,
     title: "gameEngineTitle",
-    scene: mainscene
+    scene: Stage6
   });
   // Engine.initWithForm({
-  //   thumbnailImagePath: "/favicon.ico",
-  //   title: "gameEngine",
-  //   scene: ExampleScene1
+  //   thumbnailImagePath: "/thumbnail.png",
+  //   title: "Bouncy Ball",
+  //   scene: Stage6
   // });
 };

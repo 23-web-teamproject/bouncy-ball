@@ -28,6 +28,7 @@ class StageScene extends GameObject {
 
   update(deltaTime) {
     super.update(deltaTime);
+    this.setStagePositionToCenter();
     if (this.isSceneChangeState === false) {
       if (this.isStarCountIsZero()) {
         this.loadNextStage();
@@ -36,6 +37,13 @@ class StageScene extends GameObject {
         this.reloadCurrentScene();
       }
     }
+  }
+
+  /**
+   * 스테이지 내 모든 블럭들의 위치가 상수여서
+   * 해상도에 따라 위치가 달라지므로 이 씬의 위치를 중앙으로 옮긴다.
+   */
+  setStagePositionToCenter() {
   }
 
   isStarCountIsZero() {
