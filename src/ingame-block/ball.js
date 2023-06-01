@@ -6,14 +6,11 @@ import {
   InputManager,
   ParticleEffect,
   RenderManager,
-  SceneManager,
-  Debug,
 } from "/src/engine/module.js";
 
 import { clamp } from "../engine/utils.js";
-import { BoxCollider } from "../engine/data-structure/collider.js";
 
-export default class Ball extends Circle {
+export default class Ball extends Rect {
   /**
    * @property {boolean} isDead공이 죽었다면 true다.
    */
@@ -27,10 +24,8 @@ export default class Ball extends Circle {
    */
   constructor(x, y) {
     super({
-      radius: 10,
-      color: new Color(255, 255, 0, 1),
-      strokeColor: new Color(0, 0, 0, 1),
-      strokeWidth: 1.5,
+      width: 1,
+      height: 1,
       transform: {
         position: new Vector(x, y),
       },
@@ -40,14 +35,20 @@ export default class Ball extends Circle {
         dynamicFriction: 0.5,
         isGravity: true,
       },
+      boundary: {
+        width: 15,
+        height: 15,
+      },
     });
-    this.collider = new BoxCollider({
-      width: 15,
-      height: 15,
-    });
-    this.getBoundary = () => {
-      return this.collider.getBoundary().elementMultiply(this.getWorldScale());
-    };
+
+    this.addChild(
+      new Circle({
+        radius: 10,
+        color: new Color(255, 255, 0, 1),
+        strokeColor: new Color(0, 0, 0, 1),
+        strokeWidth: 1.5,
+      })
+    );
 
     /**
      * 공의 상태를 나타내는 변수
