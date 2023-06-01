@@ -24,7 +24,7 @@ window.onload = () => {
     height: 720,
     fps: 60,
     title: "gameEngineTitle",
-    scene: Stage2
+    scene: mainscene
   });
   // Engine.initWithForm({
   //   thumbnailImagePath: "/favicon.ico",

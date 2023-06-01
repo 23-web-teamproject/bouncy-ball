@@ -20,15 +20,25 @@ export default class mainscene extends GameObject  {
   this.playbutton = new Sprite(({
     imagePath: "/src/ingame-block/playbutton.png",
     transform: {
-      position: new Vector(233,504)
+      position: new Vector(233,400)
     },
   }))
   this.addChild(this.playbutton);
+
+  this.description = new Sprite(({
+    imagePath: "/src/ingame-block/discription.png",
+    transform: {
+      position: new Vector(233, 600)}
+  }))
+  this.addChild(this.description)
 }
   update(deltaTime) {
     super.update(deltaTime);
     if(this.playbutton.isLeftMouseClickThis()){
       SceneManager.loadScene(Stage1);
+    }
+    if(this.description.isLeftMouseClickThis()){
+      SceneManager.loadScene();
     }
   }
 }
