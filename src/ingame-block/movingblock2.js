@@ -16,7 +16,7 @@ export default class movingblock2 extends Sprite {
     const trigger = new Rect({
       name: "jumpTrigger",
       isVisible: false,
-      width: 30,
+      width: 60,
       height: 4,
       transform: {
         position: new Vector(0, -13),
