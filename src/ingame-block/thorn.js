@@ -1,6 +1,6 @@
 import { Vector, Sprite, Rect, GameObject, Color } from "/src/engine/module.js";
 
-export default class Thorn extends Sprite {
+export default class Thorn extends GameObject {
   /**
    * 밟으면 더 높이 뛰어오르는 블록입니다.
    *
