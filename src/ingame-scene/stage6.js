@@ -15,9 +15,10 @@ import movingblock3 from "../ingame-block/movingblock3.js";
 import wall from "../ingame-block/wall.js";
 
 import notBlock from "../ingame-block/notblock.js";
+import endingscene from "./endingscene.js";
 export default class Stage6 extends StageScene  {
   constructor() {
-    super(Stage6);
+    super(endingscene);
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
