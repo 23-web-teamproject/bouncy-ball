@@ -41,14 +41,13 @@ export default class Ball extends Rect {
       },
     });
 
-    this.addChild(
-      new Circle({
-        radius: 10,
-        color: new Color(255, 255, 0, 1),
-        strokeColor: new Color(0, 0, 0, 1),
-        strokeWidth: 1.5,
-      })
-    );
+    this.circle = new Circle({
+      radius: 10,
+      color: new Color(255, 255, 0, 1),
+      strokeColor: new Color(0, 0, 0, 1),
+      strokeWidth: 1.5,
+    })
+    this.addChild(this.circle);
 
     /**
      * 공의 상태를 나타내는 변수
@@ -163,7 +162,7 @@ export default class Ball extends Rect {
         this.currentPressedKey === "ArrowLeft"
       ) {
         this.addVelocity(new Vector(-30, 0));
-        this.color = new Color(0, 0, 0, 1);
+        this.circle.color = new Color(0, 0, 0, 1);
         this.removeItem();
       }
       if (
@@ -171,7 +170,7 @@ export default class Ball extends Rect {
         this.currentPressedKey === "ArrowRight"
       ) {
         this.addVelocity(new Vector(30, 0));
-        this.color = new Color(0, 0, 0, 1);
+        this.circle.color = new Color(0, 0, 0, 1);
         this.removeItem();
       }
     } else if (this.itemType === -1) {
@@ -180,7 +179,7 @@ export default class Ball extends Rect {
         this.currentPressedKey === "ArrowLeft"
       ) {
         this.setVelocity(new Vector(-3, -40));
-        this.color = new Color(150, 75, 0, 1);
+        this.circle.color = new Color(150, 75, 0, 1);
         this.removeItem();
       }
       if (
@@ -188,7 +187,7 @@ export default class Ball extends Rect {
         this.currentPressedKey === "ArrowRight"
       ) {
         this.setVelocity(new Vector(3, -40));
-        this.color = new Color(150, 75, 0, 1);
+        this.circle.color = new Color(150, 75, 0, 1);
         this.removeItem();
       }
     }
@@ -201,7 +200,7 @@ export default class Ball extends Rect {
    */
   removeItem() {
     if (this.itemType !== 0) {
-      this.color = new Color(255, 255, 0, 1);
+      this.circle.color = new Color(255, 255, 0, 1);
     }
     this.itemType = 0;
   }
@@ -305,10 +304,10 @@ export default class Ball extends Rect {
       this.setVelocity(Vector.zero);
     } else if (other.getName() == "dashitem") {
       this.itemType = 1;
-      this.color = new Color(0, 0, 0, 1);
+      this.circle.color = new Color(0, 0, 0, 1);
     } else if (other.getName() == "jumpitem") {
       this.itemType = -1;
-      this.color = new Color(150, 75, 0, 1);
+      this.circle.color = new Color(150, 75, 0, 1);
     } else {
       this.a = 0;
       this.rigidbody.isGravity = true;
