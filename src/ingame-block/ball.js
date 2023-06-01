@@ -52,7 +52,6 @@ export default class Ball extends Rect {
     this.ballsound = new SoundEffect("/src/ingame-block/croppedBallSound.mp3");
     this.deathsound = new SoundEffect("/src/ingame-block/croppedDeathSound.mp3");
     this.jumpsound = new SoundEffect("/src/ingame-block/croppedJumpSound.mp3");
-    this.starsound = new SoundEffect("/src/ingame-block/croppedStarSound.mp3");
 
     /**
      * 공의 상태를 나타내는 변수
@@ -280,6 +279,7 @@ export default class Ball extends Rect {
    */
   onCollision(other) {
     if (other.getName() == "star") {
+      this.starsound = new SoundEffect("/src/ingame-block/croppedStarSound.mp3");
       this.starsound.play();
       return;
     }
