@@ -210,11 +210,11 @@ export default class Ball extends Rect {
    * 그 때에만 공을 움직이게 만든다.
    */
   moveBallIfBallCollidedMoveBlock() {
-    if (this.a == 1) {
+    if (this.a === 1) {
       this.rigidbody.isGravity = false;
       this.addPosition(new Vector(5, 0));
     }
-    if (this.a == -1) {
+    if (this.a === -1) {
       this.rigidbody.isGravity = false;
       this.addPosition(new Vector(-5, 0));
     }
@@ -278,33 +278,33 @@ export default class Ball extends Rect {
     }
     // 기본 블록 속에 있는 트리거와 충돌해야지만 위로 뛰어오르도록 한다.
     // 트리거는 블록 윗부분에만 달려있다.
-    if (other.getName() == "jumpTrigger") {
+    if (other.getName() === "jumpTrigger") {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.transform.velocity.y = -30;
     }
-    if (other.getName() == "jumpblock") {
+    if (other.getName() === "jumpblock") {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.transform.velocity.y = -50;
-    } else if (other.getName() == "thorn") {
+    } else if (other.getName() === "thorn") {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.createDeadEffect();
-    } else if (other.getName() == "right_smallbox") {
+    } else if (other.getName() === "right_smallbox") {
       this.a = 1;
       this.rigidbody.isGravity = false;
       this.setPosition(other.getPosition().add(new Vector(35, 15)));
       this.setVelocity(Vector.zero);
-    } else if (other.getName() == "left_smallbox") {
+    } else if (other.getName() === "left_smallbox") {
       this.a = -1;
       this.rigidbody.isGravity = false;
       this.setPosition(other.getPosition().add(new Vector(-35, 15)));
       this.setVelocity(Vector.zero);
-    } else if (other.getName() == "dashitem") {
+    } else if (other.getName() === "dashitem") {
       this.itemType = 1;
       this.circle.color = new Color(0, 0, 0, 1);
-    } else if (other.getName() == "jumpitem") {
+    } else if (other.getName() === "jumpitem") {
       this.itemType = -1;
       this.circle.color = new Color(150, 75, 0, 1);
     } else {

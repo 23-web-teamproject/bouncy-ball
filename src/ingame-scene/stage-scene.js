@@ -23,6 +23,8 @@ class StageScene extends GameObject {
    */
   constructor(NextScene) {
     super();
+    star.starCount = 0;
+
     this.NextScene = NextScene;
     this.isSceneChangeState = false;
     this.isStagePositionSetToCenter = false;
@@ -34,10 +36,6 @@ class StageScene extends GameObject {
     super.update(deltaTime);
     if (this.isStagePositionSetToCenter === false) {
       this.setStagePositionToCenter();
-      // updateMatrix 이후에 update가 실행되기 때문에
-      // 어쩔 수 없이 updateMatrix를 한 번 더 호출하여
-      // 바뀐 좌표를 전체적으로 갱신해준다.
-      this.updateMatrix();
     }
 
     if (this.isSceneChangeState === false) {
@@ -49,7 +47,7 @@ class StageScene extends GameObject {
       }
     }
     if (this.isEnteredCheatCode()) {
-      this.loadNextStage();
+      SceneManager.loadScene(this.NextScene);
     }
   }
 
@@ -67,6 +65,11 @@ class StageScene extends GameObject {
     const stageSize = this.maxPos.minus(this.minPos);
     const centerPos = canvasCenterPos.minus(stageSize.multiply(0.5));
     this.setPosition(centerPos.minus(this.minPos));
+
+    // updateMatrix 이후에 update가 실행되기 때문에
+    // 어쩔 수 없이 updateMatrix를 한 번 더 호출하여
+    // 바뀐 좌표를 전체적으로 갱신해준다.
+    this.updateMatrix();
 
     this.isStagePositionSetToCenter = true;
   }
@@ -100,7 +103,6 @@ class StageScene extends GameObject {
     this.isSceneChangeState = true;
 
     setTimeout(() => {
-      star.starCount = 0;
       SceneManager.loadScene(this.NextScene);
     }, 1500);
   }
@@ -113,7 +115,6 @@ class StageScene extends GameObject {
     this.isSceneChangeState = true;
 
     setTimeout(() => {
-      star.starCount = 0;
       SceneManager.loadScene(this.constructor);
     }, 1500);
   }
