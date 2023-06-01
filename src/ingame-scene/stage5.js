@@ -27,10 +27,13 @@ export default class Stage5 extends StageScene  {
     this.jumpblock = new JumpBlock(385, 165)
     this.addChild(this.jumpblock);
 
-    for(let i = 285; i>= 165; i-=30){
+    for(let i = 285; i>= 195; i-=30){
       this.block = new notBlock(445, i)
       this.addChild(this.block);
     }
+
+    this.block= new Block(445,165)
+    this.addChild(this.block);
 
     for(let i = 475; i <= 535; i+=30)
     {

@@ -5,6 +5,7 @@ import Block from "../ingame-block/block(gray).js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
 import Stage1 from "./stage1.js";
+import discription1 from "./discription1.js";
 import { GameObject, RenderManager, SceneManager, Sprite, Vector } from "../engine/module.js";
 export default class mainscene extends GameObject  {
   constructor() {
@@ -25,20 +26,20 @@ export default class mainscene extends GameObject  {
   }))
   this.addChild(this.playbutton);
 
-  this.description = new Sprite(({
+  this.discription = new Sprite(({
     imagePath: "/src/ingame-block/discription.png",
     transform: {
       position: new Vector(233, 600)}
   }))
-  this.addChild(this.description)
+  this.addChild(this.discription)
 }
   update(deltaTime) {
     super.update(deltaTime);
     if(this.playbutton.isLeftMouseClickThis()){
       SceneManager.loadScene(Stage1);
     }
-    if(this.description.isLeftMouseClickThis()){
-      SceneManager.loadScene();
+    if(this.discription.isLeftMouseClickThis()){
+      SceneManager.loadScene(discription1);
     }
   }
 }
