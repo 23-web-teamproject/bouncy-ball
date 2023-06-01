@@ -6,6 +6,7 @@ import {
   InputManager,
   ParticleEffect,
   RenderManager,
+  SoundEffect,
 } from "/src/engine/module.js";
 
 import { clamp } from "../engine/utils.js";
@@ -48,6 +49,10 @@ export default class Ball extends Rect {
       strokeWidth: 1.5,
     });
     this.addChild(this.circle);
+    this.ballsound = new SoundEffect("/src/ingame-block/croppedBallSound.mp3");
+    this.deathsound = new SoundEffect("/src/ingame-block/croppedDeathSound.mp3");
+    this.jumpsound = new SoundEffect("/src/ingame-block/croppedJumpSound.mp3");
+    this.starsound = new SoundEffect("/src/ingame-block/croppedStarSound.mp3");
 
     /**
      * 공의 상태를 나타내는 변수
@@ -231,6 +236,7 @@ export default class Ball extends Rect {
       this.particleEffect === undefined
     ) {
       this.createDeadEffect();
+      this.deathsound.play();
     }
   }
 
@@ -274,6 +280,7 @@ export default class Ball extends Rect {
    */
   onCollision(other) {
     if (other.getName() == "star") {
+      this.starsound.play();
       return;
     }
     // 기본 블록 속에 있는 트리거와 충돌해야지만 위로 뛰어오르도록 한다.
@@ -282,25 +289,30 @@ export default class Ball extends Rect {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.transform.velocity.y = -30;
+      this.ballsound.play();
     }
     if (other.getName() === "jumpblock") {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.transform.velocity.y = -50;
+      this.jumpsound.play();
     } else if (other.getName() === "thorn") {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.createDeadEffect();
+      this.deathsound.play();
     } else if (other.getName() === "right_smallbox") {
       this.a = 1;
       this.rigidbody.isGravity = false;
       this.setPosition(other.getPosition().add(new Vector(35, 15)));
       this.setVelocity(Vector.zero);
+      this.jumpsound.play();
     } else if (other.getName() === "left_smallbox") {
       this.a = -1;
       this.rigidbody.isGravity = false;
       this.setPosition(other.getPosition().add(new Vector(-35, 15)));
       this.setVelocity(Vector.zero);
+      this.jumpsound.play();
     } else if (other.getName() === "dashitem") {
       this.itemType = 1;
       this.circle.color = new Color(0, 0, 0, 1);
