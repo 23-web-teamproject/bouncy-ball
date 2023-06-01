@@ -46,7 +46,7 @@ export default class Ball extends Rect {
       color: new Color(255, 255, 0, 1),
       strokeColor: new Color(0, 0, 0, 1),
       strokeWidth: 1.5,
-    })
+    });
     this.addChild(this.circle);
 
     /**
@@ -252,16 +252,16 @@ export default class Ball extends Rect {
         diffuseness: 180,
         speed: 100,
         lifeTime: 1,
-        transform: {
-          position: new Vector(
-            clamp(this.getPosition().x, 0, RenderManager.renderCanvasWidth),
-            clamp(this.getPosition().y, 0, RenderManager.renderCanvasHeight)
-          ),
-        },
       });
       this.addChild(this.particleEffect);
       // 이펙트의 부모를 제거하면 자동으로 이펙트의 부모가 씬 객체로 설정됨
       this.particleEffect.removeParent();
+      this.particleEffect.setPosition(
+        new Vector(
+          clamp(this.getPosition().x, 0, RenderManager.renderCanvasWidth),
+          clamp(this.getPosition().y, 0, RenderManager.renderCanvasHeight)
+        )
+      );
       this.particleEffect.run();
     }
   }
@@ -291,7 +291,6 @@ export default class Ball extends Rect {
       this.a = 0;
       this.rigidbody.isGravity = true;
       this.createDeadEffect();
-      // SceneManager.loadScene(Stage1);
     } else if (other.getName() == "right_smallbox") {
       this.a = 1;
       this.rigidbody.isGravity = false;
