@@ -1,8 +1,9 @@
 import {
-  Debug,
   GameObject,
   InputManager,
+  RenderManager,
   SceneManager,
+  Vector,
 } from "../engine/module.js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
@@ -24,11 +25,21 @@ class StageScene extends GameObject {
     super();
     this.NextScene = NextScene;
     this.isSceneChangeState = false;
+    this.isStagePositionSetToCenter = false;
+    this.minPos = new Vector(Number.MAX_VALUE, Number.MAX_VALUE);
+    this.maxPos = new Vector(0, 0);
   }
 
   update(deltaTime) {
     super.update(deltaTime);
-    this.setStagePositionToCenter();
+    if (this.isStagePositionSetToCenter === false) {
+      this.setStagePositionToCenter();
+      // updateMatrix 이후에 update가 실행되기 때문에
+      // 어쩔 수 없이 updateMatrix를 한 번 더 호출하여
+      // 바뀐 좌표를 전체적으로 갱신해준다.
+      this.updateMatrix();
+    }
+
     if (this.isSceneChangeState === false) {
       if (this.isStarCountIsZero()) {
         this.loadNextStage();
@@ -37,6 +48,9 @@ class StageScene extends GameObject {
         this.reloadCurrentScene();
       }
     }
+    if (this.isEnteredCheatCode()) {
+      this.loadNextStage();
+    }
   }
 
   /**
@@ -44,6 +58,38 @@ class StageScene extends GameObject {
    * 해상도에 따라 위치가 달라지므로 이 씬의 위치를 중앙으로 옮긴다.
    */
   setStagePositionToCenter() {
+    this.findMinAndMaxPosInStage(this.childList);
+
+    const canvasCenterPos = new Vector(
+      RenderManager.renderCanvasWidth / 2,
+      RenderManager.renderCanvasHeight / 2
+    );
+    const stageSize = this.maxPos.minus(this.minPos);
+    const centerPos = canvasCenterPos.minus(stageSize.multiply(0.5));
+    this.setPosition(centerPos.minus(this.minPos));
+
+    this.isStagePositionSetToCenter = true;
+  }
+
+  findMinAndMaxPosInStage(childList) {
+    childList.forEach((child) => {
+      if (this.minPos.x > child.getPosition().x) {
+        this.minPos.x = child.getPosition().x;
+      }
+      if (this.minPos.y > child.getPosition().y) {
+        this.minPos.y = child.getPosition().y;
+      }
+      if (this.maxPos.x < child.getPosition().x) {
+        this.maxPos.x = child.getPosition().x;
+      }
+      if (this.maxPos.y < child.getPosition().y) {
+        this.maxPos.y = child.getPosition().y;
+      }
+
+      if (child.childList.length > 0) {
+        this.findMinAndMaxPosInStage(child.childList);
+      }
+    });
   }
 
   isStarCountIsZero() {
@@ -70,6 +116,14 @@ class StageScene extends GameObject {
       star.starCount = 0;
       SceneManager.loadScene(this.constructor);
     }, 1500);
+  }
+
+  /**
+   * 시연용 치트코드 키가 눌렸다면 true를 반환한다.
+   * @returns {boolean}
+   */
+  isEnteredCheatCode() {
+    return InputManager.isKeyDown("`");
   }
 }
 
