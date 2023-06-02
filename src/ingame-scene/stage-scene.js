@@ -134,7 +134,55 @@ class StageScene extends GameObject {
     clearEffect.setPosition(
       new Vector(
         RenderManager.renderCanvasWidth / 2,
-        RenderManager.renderCanvasHeight / 2
+        RenderManager.renderCanvasHeight / 4 *3
+      )
+    );
+    const clearEffect2 = new ParticleEffect({
+      imagePath: "/src/ingame-scene/assets/images/star.png",
+      isEnable: true,
+      countPerSecond: 60,
+      duration: 0.5,
+      rotateDirection: "random",
+      rotatePerSecond: 0.5,
+      speed: 75,
+      diffuseness: 180,
+      isAlphaFade: false,
+      isScaleFade: false,
+      lifeTime: 5,
+      isParticlePhysicsEnable: true,
+      particleRigidbody: {
+        isGravity: true,
+      },
+    });
+    this.addChild(clearEffect2);
+    clearEffect2.setPosition(
+      new Vector(
+        RenderManager.renderCanvasWidth / 5,
+        RenderManager.renderCanvasHeight / 3
+      )
+    );
+    const clearEffect3 = new ParticleEffect({
+      imagePath: "/src/ingame-scene/assets/images/star.png",
+      isEnable: true,
+      countPerSecond: 60,
+      duration: 0.5,
+      rotateDirection: "random",
+      rotatePerSecond: 0.5,
+      speed: 75,
+      diffuseness: 180,
+      isAlphaFade: false,
+      isScaleFade: false,
+      lifeTime: 5,
+      isParticlePhysicsEnable: true,
+      particleRigidbody: {
+        isGravity: true,
+      },
+    });
+    this.addChild(clearEffect3);
+    clearEffect3.setPosition(
+      new Vector(
+        RenderManager.renderCanvasWidth / 5 * 4,
+        RenderManager.renderCanvasHeight / 4
       )
     );
   }
