@@ -1,6 +1,9 @@
+import { DefaultLayer, ParticleLayer } from "../engine/data-structure/layer.js";
 import {
   GameObject,
   InputManager,
+  LayerManager,
+  ParticleEffect,
   RenderManager,
   SceneManager,
   Vector,
@@ -24,6 +27,8 @@ class StageScene extends GameObject {
   constructor(NextScene) {
     super();
     star.starCount = 0;
+    LayerManager.setPhysicsInteration(ParticleLayer, ParticleLayer, false);
+    LayerManager.setPhysicsInteration(DefaultLayer, ParticleLayer, false);
 
     this.NextScene = NextScene;
     this.isSceneChangeState = false;
@@ -47,7 +52,7 @@ class StageScene extends GameObject {
       }
     }
     if (this.isEnteredCheatCode()) {
-      SceneManager.loadScene(this.NextScene);
+      star.starCount = 0;
     }
   }
 
@@ -101,10 +106,37 @@ class StageScene extends GameObject {
 
   loadNextStage() {
     this.isSceneChangeState = true;
-
+    this.createClearEffect();
     setTimeout(() => {
       SceneManager.loadScene(this.NextScene);
-    }, 1500);
+    }, 3000);
+  }
+
+  createClearEffect() {
+    const clearEffect = new ParticleEffect({
+      imagePath: "/src/ingame-scene/assets/images/star.png",
+      isEnable: true,
+      countPerSecond: 60,
+      duration: 0.5,
+      rotateDirection: "random",
+      rotatePerSecond: 0.5,
+      speed: 75,
+      diffuseness: 180,
+      isAlphaFade: false,
+      isScaleFade: false,
+      lifeTime: 5,
+      isParticlePhysicsEnable: true,
+      particleRigidbody: {
+        isGravity: true,
+      },
+    });
+    this.addChild(clearEffect);
+    clearEffect.setPosition(
+      new Vector(
+        RenderManager.renderCanvasWidth / 2,
+        RenderManager.renderCanvasHeight / 2
+      )
+    );
   }
 
   isBallDead() {
@@ -116,7 +148,7 @@ class StageScene extends GameObject {
 
     setTimeout(() => {
       SceneManager.loadScene(this.constructor);
-    }, 1500);
+    }, 1000);
   }
 
   /**
