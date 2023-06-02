@@ -1,4 +1,4 @@
-import { Vector, Sprite } from "/src/engine/module.js";
+import { Vector, Sprite, ParticleEffect } from "/src/engine/module.js";
 
 export default class star extends Sprite {
   /**
@@ -29,6 +29,23 @@ export default class star extends Sprite {
 
   onCollision(other) {
     if(this.isActive){
+      const starEffect = new ParticleEffect({
+        imagePath: "/src/ingame-scene/assets/images/starParticle.png",
+        isEnable: true,
+        countPerSecond: 25,
+        duration: 0.25,
+        rotateDirection: "random",
+        rotatePerSecond: 0.5,
+        speed: 200,
+        diffuseness: 180,
+        isAlphaFade: true,
+        isScaleFade: true,
+        lifeTime: 0.5,
+      });
+      this.addChild(starEffect);
+      starEffect.removeParent();
+      starEffect.setPosition(this.getPosition());
+
       this.deactivate();
       this.destroy();
       star.starCount--;

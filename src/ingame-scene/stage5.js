@@ -6,7 +6,7 @@ import JumpBlock from "../ingame-block/jumpblock.js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
-import disappear_block from "../ingame-block/disappear_block.js";
+import BreakableBlock from "./assets/blocks/breakable-block.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import dashitem from "../ingame-block/dashitem.js";
 import jumpitem from "../ingame-block/jumpitem.js";
@@ -55,11 +55,11 @@ export default class Stage5 extends StageScene  {
 
     for(let i = 600; i <= 670; i+=70)
     { 
-      this.disappear_block = new disappear_block(i, 435)
-      this.addChild(this.disappear_block);
+      this.breakableBlock = new BreakableBlock(i, 435)
+      this.addChild(this.breakableBlock);
     }
-    this.disappear_block = new disappear_block(804, 435)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(804, 435)
+    this.addChild(this.breakableBlock);
 
     this.jumpblock = new JumpBlock(745, 405)
     this.addChild(this.jumpblock);
@@ -76,13 +76,13 @@ export default class Stage5 extends StageScene  {
     this.jumpitem = new jumpitem(505, 255)
     this.addChild(this.jumpitem);
 
-    this.disappear_block = new disappear_block(595, 315)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(595, 315)
+    this.addChild(this.breakableBlock);
 
     for(let i = 595; i <= 715; i+=60)
     {
-      this.disappear_block = new disappear_block(i, 195)
-      this.addChild(this.disappear_block);
+      this.breakableBlock = new BreakableBlock(i, 195)
+      this.addChild(this.breakableBlock);
     }
 
     this.jumpblock = new JumpBlock(775, 225)
