@@ -1,9 +1,5 @@
 import Color from "/src/engine/data-structure/color.js";
-import {
-  DefaultLayer,
-  Layer,
-  TerrainLayer,
-} from "/src/engine/data-structure/layer.js";
+import { DefaultLayer, Layer } from "/src/engine/data-structure/layer.js";
 import Matrix from "/src/engine/data-structure/matrix.js";
 import Transform from "/src/engine/data-structure/transform.js";
 import RigidBody from "/src/engine/data-structure/rigidbody.js";
@@ -15,7 +11,7 @@ import InputManager from "/src/engine/core/input-manager.js";
 import SceneManager from "/src/engine/core/scene-manager.js";
 import RenderManager from "/src/engine/core/render-manager.js";
 
-import { typeCheck } from "/src/engine/utils.js";
+import { typeCheck, sin, cos } from "/src/engine/utils.js";
 
 /**
  * 게임에 등장하는 모든 객체의 기본형태다.
@@ -221,21 +217,22 @@ class GameObject {
    * 이 객체의 자식들의 matrix도 업데이트한다.
    */
   updateMatrix() {
-    this.calculateMatrix();
+    if (this.isActive) {
+      this.calculateMatrix();
 
-    this.childList.forEach((child) => {
-      child.updateMatrix();
-    });
+      this.childList.forEach((child) => {
+        child.updateMatrix();
+      });
+    }
   }
 
   calculateMatrix() {
-    if (this.isActive) {
-      this.updateLocalMatrix();
-      if (this.hasParentGameObject()) {
-        this.multiplyParentMatrix();
-      } else {
-        this.matrix = this.localMatrix;
-      }
+    this.updateLocalMatrix();
+
+    if (this.hasParentGameObject()) {
+      this.multiplyParentMatrix();
+    } else {
+      this.matrix = this.localMatrix;
     }
   }
 
@@ -261,11 +258,12 @@ class GameObject {
   }
 
   /**
-   * 먼저 선형보간한 matrix를 사용해 context에 등록한다.
-   * 그 다음 draw()를 통해 물체를 렌더링한다.
+   * beforeDraw로 전처리 과정을 거친 후,
+   * draw()를 통해 객체마다 정의된 방법으로 객체를 렌더링한다.
    * 이 객체를 상속받은 Rect나 Circle처럼 자식객체에 따라
    * 각각 다른 렌더링이 수행된다.
    * 그 후 이 객체의 모든 자식들을 렌더링한다.
+   * 모든 렌더링이 끝나면 afterDraw로 전처리를 해제한다.
    */
   render() {
     if (this.isActive && this.isVisible) {
@@ -491,6 +489,9 @@ class GameObject {
       // 좌표값을 바로 더한다.
       this.addLocalPosition(position);
     }
+
+    // 부모의 좌표가 변했으므로 자식들에게 전파한다.
+    this.updateMatrix();
   }
 
   /**
@@ -534,6 +535,9 @@ class GameObject {
       // 좌표값을 바로 대입한다.
       this.setLocalPosition(position);
     }
+
+    // 부모의 좌표가 변했으므로 자식들에게 전파한다.
+    this.updateMatrix();
   }
 
   /**
@@ -601,10 +605,8 @@ class GameObject {
   getWorldScale() {
     const rad = (this.getWorldRotation() * Math.PI) / 180;
 
-    const x =
-      rad != 0 ? this.matrix.b / Math.sin(rad) : this.matrix.a / Math.cos(rad);
-    const y =
-      rad != 0 ? -this.matrix.c / Math.sin(rad) : this.matrix.d / Math.cos(rad);
+    const x = rad != 0 ? this.matrix.b / sin(rad) : this.matrix.a / cos(rad);
+    const y = rad != 0 ? -this.matrix.c / sin(rad) : this.matrix.d / cos(rad);
     return new Vector(x, y);
   }
 
@@ -645,6 +647,16 @@ class GameObject {
     const a = this.matrix.a;
     const b = this.matrix.b;
     return (Math.atan2(b, a) * 180) / Math.PI;
+
+    // TODO
+    // Math.atan2의 수행시간을 줄일 수 없다면
+    // 부모의 transform을 참조하는 방식으로
+    // 바꾸어야 한다.
+    // if (this.hasParentGameObject()) {
+    //   return this.transform.rotation + this.parent.getWorldRotation();
+    // } else {
+    //   return this.transform.rotation;
+    // }
   }
 
   /**
@@ -722,6 +734,28 @@ class GameObject {
   }
 
   /**
+   * Collider를 이용해 이 객체의 AABB를 생성한다.
+   * 만약 다른 Collider를 사용하는 객체라면 이 함수를 재정의해야한다.
+   * GameObject는 기본적으로 BoxCollider이기 때문에
+   * 상자 형태를 이용해 AABB를 생성한다.
+   *
+   * @returns {AABB}
+   */
+  getAABB() {
+    const colliderPos = this.getColliderPosition();
+    const boundary = this.getBoundary();
+    this.collider.aabb.min = new Vector(
+      colliderPos.x - boundary.x / 2,
+      colliderPos.y - boundary.y / 2
+    );
+    this.collider.aabb.max = new Vector(
+      colliderPos.x + boundary.x / 2,
+      colliderPos.y + boundary.y / 2
+    );
+    return this.collider.aabb;
+  }
+
+  /**
    * 월드 좌표계에서 이 객체의 외형의 크기를 반환한다.
    * 기본적으로 BoxCollider를 사용하기 때문에 상자 형태의 크기가 반환된다.
    * 만약 GameObject를 상속받는 객체에서 다른 Collider를 사용한다면,
@@ -730,7 +764,7 @@ class GameObject {
    * @returns {Vector}
    */
   getBoundary() {
-    return this.collider.getBoundary().elementMultiply(this.getWorldScale());
+    return this.collider.boundary.elementMultiply(this.getWorldScale());
   }
 
   /**
@@ -746,47 +780,6 @@ class GameObject {
   /**
    * 월드 좌표계에서 Collider의 오프셋을 반환한다.
    * 이 때 오프셋에 WorldScale을 적용한다.
-   *
-   * @returns {Vector}
-   */
-  getColliderOffset() {
-    return this.collider.getOffset();
-  }
-
-  /**
-   * 이 객체의 화면상 외형의 크기를 반환한다.
-   * 기본적으로 BoxCollider를 사용하기 때문에 상자 형태의 크기가 반환된다.
-   *
-   * @returns {Vector}
-   */
-  getWorldBoundary() {
-    return this.getBoundary().elementMultiply(this.getWorldScale());
-  }
-
-  /**
-   * 이 객체의 외형의 크기를 반환한다.
-   * 기본적으로 BoxCollider를 사용하기 때문에 상자 형태의 크기가 반환된다.
-   *
-   * @returns {Vector}
-   */
-  getBoundary() {
-    return this.collider.getBoundary();
-  }
-
-  /**
-   * 이 객체의 화면상 좌표값에 외형의 오프셋값을 더한 좌표를 반환한다.
-   * 이 때 오프셋에도 WorldScale을 적용해 더한다.
-   *
-   * @returns {Vector}
-   */
-  getColliderWorldPosition() {
-    return this.getWorldPosition().add(
-      this.getColliderOffset().elementMultiply(this.getWorldScale())
-    );
-  }
-
-  /**
-   * 이 객체의 외형의 오프셋값을 반환한다.
    *
    * @returns {Vector}
    */

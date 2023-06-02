@@ -1,6 +1,6 @@
-import { Vector, Sprite, Rect, GameObject } from "/src/engine/module.js";
+import { Vector, Sprite, Rect } from "/src/engine/module.js";
 
-export default class JumpBlock extends GameObject {
+export default class JumpBlock extends Sprite {
   /**
    * 밟으면 더 높이 뛰어오르는 블록입니다.
    *
@@ -8,23 +8,7 @@ export default class JumpBlock extends GameObject {
    * @param {number} y - y좌표
    */
   constructor(x, y) {
-    super();
-
-    this.addChild(new Rect({
-      name: "jumpblock",
-      width: 26,
-      height: 1,
-      transform: {
-        position: new Vector(x, y - 15),
-      },
-      isPhysicsEnable: true,
-      rigidbody: {
-        isStatic: true,
-        isTrigger: true,
-      },
-    }));
-
-    this.addChild(new Sprite({
+    super({
       name: "jumpblockimg",
       imagePath: "/src/ingame-block/jumpblock.png",
       isPhysicsEnable: true,
@@ -34,6 +18,22 @@ export default class JumpBlock extends GameObject {
       rigidbody: {
         isStatic: true,
       },
-    }));
+    });
+
+    const trigger = new Rect({
+      name: "jumpblock",
+      isVisible: false,
+      width: 30,
+      height: 4,
+      transform: {
+        position: new Vector(0, -13),
+      },
+      isPhysicsEnable: true,
+      rigidbody: {
+        isTrigger: true,
+      },
+    });
+
+    this.addChild(trigger);
   }
 }

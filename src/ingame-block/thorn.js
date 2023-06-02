@@ -1,4 +1,4 @@
-import { Vector, Sprite } from "/src/engine/module.js";
+import { Vector, Sprite, Rect, GameObject, Color } from "/src/engine/module.js";
 
 export default class Thorn extends Sprite {
   /**
@@ -9,15 +9,30 @@ export default class Thorn extends Sprite {
    */
   constructor(x, y) {
     super({
-      name: "thorn",
+      name: "thornimg",
       imagePath: "/src/ingame-block/thorn.png",
+      isPhysicsEnable: true,
       transform: {
         position: new Vector(x, y),
       },
-      isPhysicsEnable: true,
       rigidbody: {
         isStatic: true,
       },
     });
+
+    const trigger = new Rect({
+      name: "thorn",
+      width: 26,
+      height: 1,
+      transform: {
+        position: new Vector(0, -14.5),
+      },
+      isPhysicsEnable: true,
+      rigidbody: {
+        isTrigger: true,
+      },
+    })
+    this.addChild(trigger);
+    trigger.hide();
   }
 }

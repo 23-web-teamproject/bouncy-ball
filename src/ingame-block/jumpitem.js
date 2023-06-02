@@ -1,11 +1,6 @@
 import { Vector, Sprite } from "/src/engine/module.js";
 
-export default class star extends Sprite {
-  /**
-   * @property {number} starCount
-   * @static
-   */
-  static starCount = 0;
+export default class jumpitem extends Sprite {
   /**
    * 밟으면 더 높이 뛰어오르는 블록입니다.
    *
@@ -14,8 +9,8 @@ export default class star extends Sprite {
    */
   constructor(x, y) {
     super({
-      name: "star",
-      imagePath: "/src/ingame-block/star.png",
+      name: "jumpitem",
+      imagePath: "/src/ingame-block/jumpitem.png",
       transform: {
         position: new Vector(x, y),
       },
@@ -24,15 +19,11 @@ export default class star extends Sprite {
         isTrigger : true
       },
     });
-    star.starCount++;
   }
 
   onCollision(other) {
-    if(this.isActive){
-      this.deactivate();
-      this.destroy();
-      star.starCount--;
-    }
+    this.destroy();
+    // 공이랑 닿을 때 공에 있는 변수값 수정해야함
 
   }
 }

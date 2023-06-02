@@ -1,6 +1,6 @@
 import { Vector, Sprite, GameObject, Rect } from "/src/engine/module.js";
 
-export default class MoverightBlock extends GameObject {
+export default class MoverightBlock extends Sprite {
   /**
    * 밟으면 더 높이 뛰어오르는 블록입니다.
    *
@@ -8,24 +8,7 @@ export default class MoverightBlock extends GameObject {
    * @param {number} y - y좌표
    */
   constructor(x, y) {
-    super();
-
-    this.addChild(new Rect({
-      name: "right_smallbox",
-      width: 26,
-      height: 1,
-      transform: {
-        position: new Vector(x, y - 15),
-      },
-      isPhysicsEnable: true,
-      rigidbody: {
-        bounceness: 0,
-        isStatic: true,
-        isTrigger: true,
-      },
-    }));
-
-    this.addChild(new Sprite({
+    super({
       name: "right_smallboximg",
       imagePath: "/src/ingame-block/moverightblock.png",
       isPhysicsEnable: true,
@@ -36,7 +19,23 @@ export default class MoverightBlock extends GameObject {
         bounciness: 0,
         isStatic: true,
       },
-    }));
+    });
+
+    this.addChild(
+      new Rect({
+        name: "right_smallbox",
+        isVisible: false,
+        width: 26,
+        height: 1,
+        transform: {
+          position: new Vector(0, -15),
+        },
+        isPhysicsEnable: true,
+        rigidbody: {
+          bounceness: 0,
+          isTrigger: true,
+        },
+      })
+    );
   }
 }
-    

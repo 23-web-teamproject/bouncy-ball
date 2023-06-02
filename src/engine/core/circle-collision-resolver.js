@@ -30,6 +30,8 @@ class CircleCollisionResolver extends CollisionResolver {
    */
   isCollideWithBox(box) {
     // 원의 중심과 상자의 중심간 거리의 차를 구한다.
+    const boxBoundary = box.getBoundary();
+    const circleBoundary = this.circle.getBoundary();
     const distance = this.circle
       .getColliderPosition()
       .minus(box.getColliderPosition());
@@ -40,28 +42,21 @@ class CircleCollisionResolver extends CollisionResolver {
     // 중심간 차의 절대값이 상자의 주변에 원이 접했을 때의 거리보다 크다면
     // 충돌하지 않은 것이다.
     if (
-      distance.x >
-        box.getBoundary().x / 2 + this.circle.getBoundary() ||
-      distance.y > box.getBoundary().y / 2 + this.circle.getBoundary()
+      distance.x > boxBoundary.x / 2 + circleBoundary ||
+      distance.y > boxBoundary.y / 2 + circleBoundary
     ) {
       return false;
     }
 
     // 중심간 차의 절대값이 상자의 크기의 절반보다 작다면
     // 원이 상자 안에 있는 셈이므로 충돌한 것이다.
-    if (
-      distance.x <= box.getBoundary().x / 2 ||
-      distance.y <= box.getBoundary().y / 2
-    ) {
+    if (distance.x <= boxBoundary.x / 2 || distance.y <= boxBoundary.y / 2) {
       return true;
     }
 
     // 꼭짓점부분에서 충돌이 될 가능성을 검사한다.
-    const d = distance.minus(box.getBoundary().multiply(0.5));
-    return (
-      d.squareLength() <=
-      this.circle.getBoundary() * this.circle.getBoundary()
-    );
+    const d = distance.minus(boxBoundary.multiply(0.5));
+    return d.squareLength() <= circleBoundary * circleBoundary;
   }
 
   /**
@@ -106,16 +101,8 @@ class CircleCollisionResolver extends CollisionResolver {
     const distance = this.circle.getColliderPosition().minus(rectCenter);
 
     const closest = new Vector(
-      clamp(
-        distance.x,
-        -box.getBoundary().x / 2,
-        box.getBoundary().x / 2
-      ),
-      clamp(
-        distance.y,
-        -box.getBoundary().y / 2,
-        box.getBoundary().y / 2
-      )
+      clamp(distance.x, -box.getBoundary().x / 2, box.getBoundary().x / 2),
+      clamp(distance.y, -box.getBoundary().y / 2, box.getBoundary().y / 2)
     );
 
     let inside = false;
@@ -150,10 +137,7 @@ class CircleCollisionResolver extends CollisionResolver {
     let normal = distance.minus(closest);
     const d = normal.squareLength();
 
-    if (
-      d > this.circle.getBoundary() * this.circle.getBoundary() &&
-      !inside
-    ) {
+    if (d > this.circle.getBoundary() * this.circle.getBoundary() && !inside) {
       return;
     }
 
@@ -183,8 +167,7 @@ class CircleCollisionResolver extends CollisionResolver {
 
     // 두 원의 반지름을 더한 값을 제곱하되 정확한 값을 위해서
     // 제곱근을 씌우진 않는다.
-    const sumOfRadius =
-      this.circle.getBoundary() + circle.getBoundary();
+    const sumOfRadius = this.circle.getBoundary() + circle.getBoundary();
     const squareOfRadius = sumOfRadius * sumOfRadius;
 
     // 두 원의 중심간 거리가 두 원의 반지름을 더한 값의 제곱보다 크면
