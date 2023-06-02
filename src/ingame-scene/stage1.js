@@ -3,7 +3,7 @@ import Path from "/src/engine/utils/path.js";
 import StageScene from "./stage-scene.js";
 import Block from "../ingame-block/block(gray).js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 import Stage2 from "./stage2.js";
 
 export default class Stage1 extends StageScene  {
@@ -81,10 +81,10 @@ export default class Stage1 extends StageScene  {
     this.block = new Block(895, 330)
     this.addChild(this.block);
 
-    this.star = new star(865, 300)
+    this.star = new Star(865, 300)
     this.addChild(this.star);
     
-    this.star = new star(420, 300)
+    this.star = new Star(420, 300)
     this.addChild(this.star);
   }
   update(deltaTime) {

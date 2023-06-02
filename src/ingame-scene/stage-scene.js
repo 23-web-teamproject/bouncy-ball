@@ -9,7 +9,7 @@ import {
   Vector,
 } from "../engine/module.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 
 /**
  * 스테이지 씬을 나타낸다.
@@ -26,7 +26,7 @@ class StageScene extends GameObject {
    */
   constructor(NextScene) {
     super();
-    star.starCount = 0;
+    Star.starCount = 0;
     LayerManager.setPhysicsInteration(ParticleLayer, ParticleLayer, false);
     LayerManager.setPhysicsInteration(DefaultLayer, ParticleLayer, false);
 
@@ -52,7 +52,7 @@ class StageScene extends GameObject {
       }
     }
     if (this.isEnteredCheatCode()) {
-      star.starCount = 0;
+      Star.starCount = 0;
     }
   }
 
@@ -101,7 +101,7 @@ class StageScene extends GameObject {
   }
 
   isStarCountIsZero() {
-    return star.starCount === 0;
+    return Star.starCount === 0;
   }
 
   loadNextStage() {

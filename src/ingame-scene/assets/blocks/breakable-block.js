@@ -33,7 +33,7 @@ export default class BreakableBlock extends Sprite {
         const breakableBlockEffect = new ParticleEffect({
           imagePath: "/src/ingame-scene/assets/images/breakableBlockParticle.png",
           isEnable: true,
-          countPerSecond: 20,
+          countPerSecond: 40,
           duration: 0.25,
           rotateDirection: "random",
           rotatePerSecond: 0.5,

@@ -5,7 +5,7 @@ import Block from "../ingame-block/block(gray).js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 import BreakableBlock from "./assets/blocks/breakable-block.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import jumpitem from "../ingame-block/jumpitem.js";
@@ -75,7 +75,7 @@ export default class Stage6 extends StageScene  {
     this.block = new Block(805, 225)
     this.addChild(this.block);
 
-    this.star = new star(565, 345)
+    this.star = new Star(565, 345)
     this.addChild(this.star);
 
     for(let i = 535; i<=775; i+=30)

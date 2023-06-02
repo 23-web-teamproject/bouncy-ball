@@ -5,7 +5,7 @@ import Block from "../ingame-block/block(gray).js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 import BreakableBlock from "./assets/blocks/breakable-block.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import dashitem from "../ingame-block/dashitem.js";
@@ -21,7 +21,7 @@ export default class Stage5 extends StageScene  {
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
-    this.star = new star(385, 65)
+    this.star = new Star(385, 65)
     this.addChild(this.star);
 
     this.jumpblock = new JumpBlock(385, 165)
@@ -101,7 +101,7 @@ export default class Stage5 extends StageScene  {
     this.addChild(this.movingblcok);
     
     for(let i=300; i<=600;i+=30){
-    this.star = new star(60, i)
+    this.star = new Star(60, i)
     this.addChild(this.star);
     }
   }

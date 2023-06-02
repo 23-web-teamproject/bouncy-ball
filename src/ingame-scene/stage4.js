@@ -4,7 +4,7 @@ import StageScene from "./stage-scene.js";
 import Block from "../ingame-block/block(gray).js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 import BreakableBlock from "./assets/blocks/breakable-block.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import MoverightBlock from "../ingame-block/moverightblock.js";
@@ -79,7 +79,7 @@ export default class Stage4 extends StageScene {
     }
 
     for (let i = 225; i <= 465; i += 60) {
-      this.star = new star(655, i - 30);
+      this.star = new Star(655, i - 30);
       this.addChild(this.star);
       this.thorn = new Thorn(655, i);
       this.addChild(this.thorn);
@@ -124,7 +124,7 @@ export default class Stage4 extends StageScene {
       this.addChild(this.thorn);
     }
 
-    this.star = new star(835, 525);
+    this.star = new Star(835, 525);
     this.addChild(this.star);
 
     this.breakableBlock = new BreakableBlock(835, 555);

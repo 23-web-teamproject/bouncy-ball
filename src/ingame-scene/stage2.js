@@ -4,7 +4,7 @@ import StageScene from "./stage-scene.js";
 import Block from "../ingame-block/block(gray).js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
+import Star from "./assets/blocks/star.js";
 import Stage3 from "./stage3.js";
 
 export default class Stage2 extends StageScene  {
@@ -67,7 +67,7 @@ export default class Stage2 extends StageScene  {
     this.block = new Block(880, 450)
     this.addChild(this.block);
 
-    this.star = new star(850, 420)
+    this.star = new Star(850, 420)
     this.addChild(this.star);
     
     this.starcount = 1;
