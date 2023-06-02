@@ -11,6 +11,8 @@ import DescriptionScene from "../description-scene/scene.js";
 export default class MainScene extends GameObject {
   constructor() {
     super();
+    const imageWidth = 1280;
+    const ratio = RenderManager.renderCanvasWidth / imageWidth;
     this.mainscene = new Sprite({
       imagePath: "/src/main-scene/assets/init_display.png",
       transform: {
@@ -18,6 +20,7 @@ export default class MainScene extends GameObject {
           RenderManager.renderCanvasWidth / 2,
           RenderManager.renderCanvasHeight / 2
         ),
+        scale: new Vector(ratio, ratio)
       },
     });
     this.addChild(this.mainscene);
@@ -25,7 +28,7 @@ export default class MainScene extends GameObject {
     this.playbutton = new Sprite({
       imagePath: "/src/main-scene/assets/playbutton.png",
       transform: {
-        position: new Vector(233, 400),
+        position: new Vector(233, RenderManager.renderCanvasHeight - 400),
       },
     });
     this.addChild(this.playbutton);
@@ -33,7 +36,7 @@ export default class MainScene extends GameObject {
     this.discription = new Sprite({
       imagePath: "/src/main-scene/assets/description.png",
       transform: {
-        position: new Vector(233, 600),
+        position: new Vector(233, RenderManager.renderCanvasHeight - 200),
       },
     });
     this.addChild(this.discription);
