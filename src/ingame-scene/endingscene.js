@@ -6,12 +6,12 @@ import Ball from "../ingame-block/ball.js";
 import star from "../ingame-block/star.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import MoverightBlock from "../ingame-block/moverightblock.js";
-import mainscene from "./mainscene.js";
+import MainScene from "../main-scene/scene.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import notBlock from "../ingame-block/notblock.js";
 export default class endingscene extends StageScene  {
   constructor() {
-    super(mainscene);
+    super(MainScene);
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 

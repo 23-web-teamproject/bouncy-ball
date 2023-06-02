@@ -5,14 +5,14 @@ import {
   Sprite,
   Vector,
 } from "../engine/module.js";
-import Stage1 from "./stage1.js";
+import Stage1 from "../ingame-scene/stage1.js";
 import DescriptionScene from "../description-scene/scene.js";
 
-export default class mainscene extends GameObject {
+export default class MainScene extends GameObject {
   constructor() {
     super();
     this.mainscene = new Sprite({
-      imagePath: "/src/ingame-block/init_display.png",
+      imagePath: "/src/main-scene/assets/init_display.png",
       transform: {
         position: new Vector(
           RenderManager.renderCanvasWidth / 2,
@@ -23,7 +23,7 @@ export default class mainscene extends GameObject {
     this.addChild(this.mainscene);
 
     this.playbutton = new Sprite({
-      imagePath: "/src/ingame-block/playbutton.png",
+      imagePath: "/src/main-scene/assets/playbutton.png",
       transform: {
         position: new Vector(233, 400),
       },
@@ -31,7 +31,7 @@ export default class mainscene extends GameObject {
     this.addChild(this.playbutton);
 
     this.discription = new Sprite({
-      imagePath: "/src/ingame-block/discription.png",
+      imagePath: "/src/main-scene/assets/description.png",
       transform: {
         position: new Vector(233, 600),
       },
