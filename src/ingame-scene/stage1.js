@@ -1,10 +1,10 @@
 import Path from "/src/engine/utils/path.js";
 
 import StageScene from "./stage-scene.js";
-import Block from "../ingame-block/block(gray).js";
 import Ball from "../ingame-block/ball.js";
 import Star from "./assets/blocks/star.js";
 import Stage2 from "./stage2.js";
+import Block from "./assets/blocks/block.js";
 
 export default class Stage1 extends StageScene  {
   constructor() {
