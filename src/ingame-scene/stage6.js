@@ -1,7 +1,7 @@
 import Path from "/src/engine/utils/path.js";
 
 import StageScene from "./stage-scene.js";
-import Block from "../ingame-block/block(gray).js";
+import Block from "./assets/blocks/block.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
@@ -13,8 +13,6 @@ import movingblock from "../ingame-block/movingblock.js";
 import movingblock2 from "../ingame-block/movingblock2.js";
 import movingblock3 from "../ingame-block/movingblock3.js";
 import wall from "../ingame-block/wall.js";
-
-import notBlock from "../ingame-block/notblock.js";
 import endingscene from "./endingscene.js";
 export default class Stage6 extends StageScene  {
   constructor() {
@@ -54,22 +52,14 @@ export default class Stage6 extends StageScene  {
 
     
     
-    for(let i = 345; i>=255; i-=30)
-    {
-      this.block = new notBlock(505, i)
-      this.addChild(this.block);
-    }
+    
 
-    this.block = new Block(505, 225)
+    this.block = new Block(505, 225, {x:1, y:5})
     this.addChild(this.block);
     
-    for(let i = 345; i>=255; i-=30)
-    {
-      this.block = new notBlock(805, i)
-      this.addChild(this.block);
-    }
+    
 
-    this.block = new Block(805, 225)
+    this.block = new Block(805, 225, {x:1, y:5})
     this.addChild(this.block);
 
     this.block = new Block(805, 225)

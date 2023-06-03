@@ -1,27 +1,25 @@
 import Path from "/src/engine/utils/path.js";
 
 import StageScene from "./stage-scene.js";
-import Block from "../ingame-block/block(gray).js";
+import Block from "./assets/blocks/block.js";
 import Ball from "../ingame-block/ball.js";
 import Star from "./assets/blocks/star.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import MoverightBlock from "../ingame-block/moverightblock.js";
 import MainScene from "../main-scene/scene.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
-import notBlock from "../ingame-block/notblock.js";
 export default class endingscene extends StageScene  {
   constructor() {
     super(MainScene);
     //setAssetFolderPath는 한 번만 실행해도 됩니다.
     Path.setAssetFolderPath(import.meta.url); // 이 코드가 없으면 상대경로로 불러올 수 없습니다.
 
-    for(let i = 120; i<= 600; i+=30)
-    {
-      this.notBlock = new notBlock(280, i)
-      this.addChild(this.notBlock);
-      this.notBlock = new notBlock(1000, i)
-      this.addChild(this.notBlock);
-    }
+    
+      this.Block = new Block(280, 120, {x:1, y:17})
+      this.addChild(this.Block);
+      this.Block = new Block(1000, 120,  {x:1, y:17})
+      this.addChild(this.Block);
+    
 
     for(let i = 180; i<=540; i+=60)
     {
@@ -31,10 +29,11 @@ export default class endingscene extends StageScene  {
       this.addChild(this.MoveleftBlock);
     }
 
+    this.Block = new Block(310, 120, {x:23, y:1})
+      this.addChild(this.Block);
+
     for(let i = 310; i<= 970; i+=30)
     {
-      this.notBlock = new notBlock(i, 120)
-      this.addChild(this.notBlock);
       this.JumpBlock = new JumpBlock(i, 600)
       this.addChild(this.JumpBlock);
     }
