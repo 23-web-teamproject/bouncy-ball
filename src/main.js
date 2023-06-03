@@ -20,16 +20,9 @@ import MainScene from "./main-scene/scene.js";
  * Engine.initWithForm()으로 form을 이용해 엔진을 초기화할 수 있다.
  */
 window.onload = () => {
-  Engine.init({
-    width: 1600,
-    height: 900,
-    fps: 60,
-    title: "gameEngineTitle",
+  Engine.initWithForm({
+    thumbnailImagePath: "/thumbnail.png",
+    title: "Bouncy Ball",
     scene: MainScene
   });
-  // Engine.initWithForm({
-  //   thumbnailImagePath: "/thumbnail.png",
-  //   title: "Bouncy Ball",
-  //   scene: Stage6
-  // });
 };
