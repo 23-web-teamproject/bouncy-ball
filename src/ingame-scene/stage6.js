@@ -1,20 +1,18 @@
 import Path from "/src/engine/utils/path.js";
 
 import StageScene from "./stage-scene.js";
-import Block from "../ingame-block/block(gray).js";
+import Block from "./assets/blocks/block.js";
 import JumpBlock from "../ingame-block/jumpblock.js";
 import Thorn from "../ingame-block/thorn.js";
 import Ball from "../ingame-block/ball.js";
-import star from "../ingame-block/star.js";
-import disappear_block from "../ingame-block/disappear_block.js";
+import Star from "./assets/blocks/star.js";
+import BreakableBlock from "./assets/blocks/breakable-block.js";
 import MoveleftBlock from "../ingame-block/moveleftblock.js";
 import jumpitem from "../ingame-block/jumpitem.js";
 import movingblock from "../ingame-block/movingblock.js";
 import movingblock2 from "../ingame-block/movingblock2.js";
 import movingblock3 from "../ingame-block/movingblock3.js";
 import wall from "../ingame-block/wall.js";
-
-import notBlock from "../ingame-block/notblock.js";
 import endingscene from "./endingscene.js";
 export default class Stage6 extends StageScene  {
   constructor() {
@@ -54,30 +52,20 @@ export default class Stage6 extends StageScene  {
 
     
     
-    for(let i = 345; i>=255; i-=30)
-    {
-      this.block = new notBlock(505, i)
-      this.addChild(this.block);
-    }
+    
 
-    this.block = new Block(505, 225)
+    this.block = new Block(505, 225, {x:1, y:5})
     this.addChild(this.block);
     
-    for(let i = 345; i>=255; i-=30)
-    {
-      this.block = new notBlock(805, i)
-      this.addChild(this.block);
-    }
+    
 
-    this.block = new Block(805, 225)
+    this.block = new Block(805, 225, {x:1, y:5})
     this.addChild(this.block);
 
     this.block = new Block(805, 225)
     this.addChild(this.block);
 
-    
-
-    this.star = new star(565, 345)
+    this.star = new Star(565, 345)
     this.addChild(this.star);
 
     for(let i = 535; i<=775; i+=30)
@@ -122,17 +110,17 @@ export default class Stage6 extends StageScene  {
     this.ball = new Ball(505, 400)
     this.addChild(this.ball);
 
-    this.disappear_block = new disappear_block(625, 465)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(625, 465)
+    this.addChild(this.breakableBlock);
 
-    this.disappear_block = new disappear_block(655, 465)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(655, 465)
+    this.addChild(this.breakableBlock);
 
-    this.disappear_block = new disappear_block(775, 465)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(775, 465)
+    this.addChild(this.breakableBlock);
 
-    this.disappear_block = new disappear_block(805, 465)
-    this.addChild(this.disappear_block);
+    this.breakableBlock = new BreakableBlock(805, 465)
+    this.addChild(this.breakableBlock);
 
   }
   update(deltaTime) {

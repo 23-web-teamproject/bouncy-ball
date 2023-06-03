@@ -119,9 +119,8 @@ const getAvailableResolution = () => {
     { description: "3840 x 2160 (16:9)", width: 3840, height: 2160 },
   ];
   const availableWidth = window.screen.availWidth;
-  const availableHeight = window.screen.availHeight;
   return resolutionList.reduce((availableResolutionList, item) => {
-    if (item.width <= availableWidth && item.height <= availableHeight) {
+    if (item.width <= availableWidth) {
       availableResolutionList.push(item);
     }
     return availableResolutionList;
